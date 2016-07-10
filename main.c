@@ -13,8 +13,8 @@ public:
 
     cout<<"Podaj dane:\n";
     for(int foo=0;foo<y;foo++){
-      cout<<"linia: "<<foo<<endl;
-      for(int bar=0;bar<x;bar++)cin>>tab[x][y];
+      cout<<"linia: "<<foo+1<<endl;
+      for(int bar=0;bar<x;bar++)cin>>tab[y][x];
       cout<<endl;
     }
 
@@ -26,7 +26,7 @@ int main(){
 
   cout<<"Hello world"<<endl;
 
-  macierz maci(2,2);
+  macierz maci(3,2);
 
   char c;
   cin>>c;
