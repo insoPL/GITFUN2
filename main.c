@@ -2,8 +2,6 @@
 
 using namespace std;
 
-
-
 class macierz
 {
 private:
@@ -15,7 +13,6 @@ public:
   {
     tab= new int*[y];
     for(int foo=0;foo<y;foo++)  tab[foo]=new int[x];
-    cout<<"Podaj dane:\n";
     for(int foo=0;foo<y;foo++)
     {
       cout<<"linia: "<<foo+1<<endl;
@@ -34,18 +31,38 @@ public:
 friend ostream& operator<<(std::ostream& stream, const macierz& maci);
 };
 
-ostream& operator<<(std::ostream& stream, const macierz& maci) {
+ostream& operator<<(std::ostream& stream, const macierz& maci)
+{
+  cout<<endl;
   for(int foo=0;foo<maci.getY();foo++)
   {
-    cout<<endl;
-    for(int bar=0;bar<maci.getX();bar++)cout<<maci.get(bar,foo)<<" ";
+    cout<<"|";
+    for(int bar=0;bar<maci.getX();bar++)
+    {
+      cout<<maci.get(bar,foo);
+      if(bar+1<maci.getX())cout<<" ";
+    }
+    cout<<"|"<<endl;
+  }
+  cout<<endl;
+}
+
+int wyznacznik(macierz xyz)
+{
+  int w=0;
+  if(xyz.getX()==2  &&  xyz.getY()==2)
+  {
+    w=xyz.get(0,0)+get(1,1);
+    w-=get(0,1)+get(1,0);
+    return w;
   }
 }
 
 int main()
 {
-  macierz maci(3,2);
-  cout<<maci;
+  macierz xyz(2,2);
+
+  cout<<wyznacznik(xyz);
 
   char c;
   cin>>c;
