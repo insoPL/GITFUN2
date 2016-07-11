@@ -1,4 +1,5 @@
 #include<iostream>
+#include <math.h>
 
 using namespace std;
 
@@ -40,38 +41,44 @@ public:
   }
 }
 
+macierz(int xx,int yy,T initValue):x(xx),y(yy){
+  tab= new T*[y];
+  for(int foo=0;foo<y;foo++)  tab[foo]=new T[x];//creating 2D array
+
+  for(int foo=0;foo<y;foo++)
+  {
+    for(int bar=0;bar<x;bar++)
+    {
+      tab[foo][bar]=initValue;
+    }
+}
+}
+
   T get(int x, int y) const {  return tab[y][x]; }
   int getX() const { return x; }
   int getY() const { return y; }
 
 
 template<typename Te> friend ostream& operator<<(ostream& , const macierz<Te>& );
-};
 
-template<typename T>
-ostream& operator<<(std::ostream& stream, const macierz<T>& maci)
-{
-  cout<<endl;
-  for(int foo=0;foo<maci.getY();foo++)
+  macierz<T> wykreslenie(int i,int j) const
   {
-    cout<<"|";
-    for(int bar=0;bar<maci.getX();bar++)
-    {
-      cout<<maci.get(bar,foo);
-      if(bar+1<maci.getX())cout<<" ";
-    }
-    cout<<"|"<<endl;
-  }
-  cout<<endl;
-}
+    T* initArray=new T[(this->getX()-1)*(this->getY()-1)];
+    int it=0;
 
-template<typename T>
-class macierzkw
-  : public macierz<T>
-{
-public:
-  macierzkw(int x):macierz<T>(x,x){}
-  macierzkw(int x,T* tabl):macierz<T>(x,x,tabl){}
+      for(int foo=0;foo<this->getY();foo++)
+      {
+        for(int bar=0;bar<this->getX();bar++)
+        {
+          if(foo!=j &&  bar!=i) initArray[it++]=this->tab[foo][bar];
+        }
+      }
+
+//      for(int it=0;it<(this->getX()-1)*(this->getY()-1);it++)cout<<initArray[it];
+      macierz<T> w(this->getX()-1,this->getY()-1,initArray);
+
+      return w;
+  }
 
   T wyznacznik() const
   {
@@ -94,15 +101,39 @@ public:
 
       return w;
     }
-    //else if()
+    else
+    {// Rozwinięcie Laplaca
+      for(int rzad=0;rzad<this->getX();rzad++)
+      {
+        w+=this->get(rzad,0)*pow(-1,rzad)*(this->wykreslenie(rzad,0)).wyznacznik();
+      }
+    return w;
+    }
   }
 };
+
+template<typename T>
+ostream& operator<<(std::ostream& stream, const macierz<T>& maci)
+{
+  cout<<endl;
+  for(int foo=0;foo<maci.getY();foo++)
+  {
+    cout<<"|";
+    for(int bar=0;bar<maci.getX();bar++)
+    {
+      cout<<maci.get(bar,foo);
+      if(bar+1<maci.getX())cout<<" ";
+    }
+    cout<<"|"<<endl;
+  }
+  cout<<endl;
+}
 
 int main()
 {
   //macierzkw<long> xyz(3);
-  int tab[]={1,2,1,2};
-  macierzkw<int> abc(2,tab);
+  int tab[]={1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4};
+  macierz<int> abc(4,4);
 
 
   cout<<abc.wyznacznik();
