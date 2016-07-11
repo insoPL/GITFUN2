@@ -28,7 +28,30 @@ public:
   int getX() const { return x; }
   int getY() const { return y; }
 
-friend ostream& operator<<(std::ostream& stream, const macierz& maci);
+  int wyznacznik() const
+  {
+    int w=0;
+    if(getX()==2  &&  getY()==2)
+    {
+      w=get(0,0)*get(1,1);
+      w-=get(0,1)*get(1,0);
+      return w;
+    }
+    if(getX()==3 &&  getY()==3)//  Metoda Sarrusa
+    {
+      w=get(0,0)*get(1,1)*get(2,2);
+      w+=get(1,0)*get(2,1)*get(0,2);
+      w+=get(0,1)*get(1,2)*get(2,0);
+
+      w-=get(0,2)*get(1,1)*get(2,0);
+      w-=get(0,1)*get(1,0)*get(2,2);
+      w-=get(2,1)*get(1,2)*get(0,0);
+
+      return w;
+    }
+  }
+
+  friend ostream& operator<<(std::ostream& stream, const macierz& maci);
 };
 
 ostream& operator<<(std::ostream& stream, const macierz& maci)
@@ -47,22 +70,11 @@ ostream& operator<<(std::ostream& stream, const macierz& maci)
   cout<<endl;
 }
 
-int wyznacznik(macierz xyz)
-{
-  int w=0;
-  if(xyz.getX()==2  &&  xyz.getY()==2)
-  {
-    w=xyz.get(0,0)+get(1,1);
-    w-=get(0,1)+get(1,0);
-    return w;
-  }
-}
-
 int main()
 {
   macierz xyz(2,2);
 
-  cout<<wyznacznik(xyz);
+  cout<<xyz.wyznacznik();
 
   char c;
   cin>>c;
