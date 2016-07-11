@@ -38,30 +38,51 @@ public:
       {
         tab[foo][bar]=inputArray[it++];
       }
-  }
-}
-
-macierz(int xx,int yy,T initValue):x(xx),y(yy){
-  tab= new T*[y];
-  for(int foo=0;foo<y;foo++)  tab[foo]=new T[x];//creating 2D array
-
-  for(int foo=0;foo<y;foo++)
-  {
-    for(int bar=0;bar<x;bar++)
-    {
-      tab[foo][bar]=initValue;
     }
-}
-}
+  }
+
+  macierz(int xx,int yy,T initValue):x(xx),y(yy){
+    tab= new T*[y];
+    for(int foo=0;foo<y;foo++)  tab[foo]=new T[x];//creating 2D array
+
+    for(int foo=0;foo<y;foo++)
+    {
+      for(int bar=0;bar<x;bar++)
+      {
+        tab[foo][bar]=initValue;
+      }
+    }
+  }
 
   T get(int x, int y) const {  return tab[y][x]; }
   int getX() const { return x; }
   int getY() const { return y; }
 
-  isSquare() const
+  int isSquare() const
   {
     if(getX()==getY()) return getX();
     else return 0;
+  }
+
+  macierz<T> operator+(macierz<T> skladnik) const
+  {
+    if(getX() !=  skladnik.getX()  ||  getY()  !=  skladnik.getY())
+    {
+      cerr << "Błąd dodawania macierzy - Macierze nie są tej samej wielkości" << endl;
+    }
+
+    T* tabW=new T[getX()*getY()];
+
+    int it=0;
+    for(int foo=0;foo<y;foo++)
+    {
+      for(int bar=0;bar<x;bar++)
+      {
+        tabW[it++]=tab[foo][bar]+skladnik.get(bar,foo);
+      }
+    }
+    macierz<T> w(getX(),getY(),tabW);
+    return w;
   }
 
 template<typename Te> friend ostream& operator<<(ostream& , const macierz<Te>& );
@@ -139,10 +160,11 @@ int main()
 {
   //macierzkw<long> xyz(3);
   int tab[]={1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4};
-  const macierz<int> abc(4,4);
 
+  const macierz<int> abc(4,4,tab);
+  const macierz<int> bac(4,4,tab);
 
-  cout<<abc.wyznacznik();
+ cout  <<  abc+bac;
 
   char c;
   cin>>c;
