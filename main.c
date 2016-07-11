@@ -29,29 +29,6 @@ public:
   int getX() const { return x; }
   int getY() const { return y; }
 
-  T wyznacznik() const
-  {
-    T w=0;
-    if(getX()==2  &&  getY()==2)
-    {
-      w=get(0,0)*get(1,1);
-      w-=get(0,1)*get(1,0);
-      return w;
-    }
-    if(getX()==3 &&  getY()==3)//  Metoda Sarrusa
-    {
-      w=get(0,0)*get(1,1)*get(2,2);
-      w+=get(1,0)*get(2,1)*get(0,2);
-      w+=get(0,1)*get(1,2)*get(2,0);
-
-      w-=get(0,2)*get(1,1)*get(2,0);
-      w-=get(0,1)*get(1,0)*get(2,2);
-      w-=get(2,1)*get(1,2)*get(0,0);
-
-      return w;
-    }
-  }
-
 template<typename Te> friend ostream& operator<<(ostream& , const macierz<Te>& );
 };
 
@@ -72,9 +49,40 @@ ostream& operator<<(std::ostream& stream, const macierz<T>& maci)
   cout<<endl;
 }
 
+template<typename T>
+class macierzkw
+  : public macierz<T>
+{
+public:
+  macierzkw(int x):macierz<T>(x,x){}
+
+  T wyznacznik() const
+  {
+    T w=0;
+    if(this->getX()==2  &&  this->getY()==2)
+    {
+      w=this->get(0,0)*this->get(1,1);
+      w-=this->get(0,1)*this->get(1,0);
+      return w;
+    }
+    if(this->getX()==3 &&  this->getY()==3)//  Metoda Sarrusa
+    {
+      w=this->get(0,0)*this->get(1,1)*this->get(2,2);
+      w+=this->get(1,0)*this->get(2,1)*this->get(0,2);
+      w+=this->get(0,1)*this->get(1,2)*this->get(2,0);
+
+      w-=this->get(0,2)*this->get(1,1)*this->get(2,0);
+      w-=this->get(0,1)*this->get(1,0)*this->get(2,2);
+      w-=this->get(2,1)*this->get(1,2)*this->get(0,0);
+
+      return w;
+    }
+  }
+};
+
 int main()
 {
-  macierz<long> xyz(2,2);
+  macierzkw<long> xyz(3);
 
   cout<<xyz.wyznacznik();
 
