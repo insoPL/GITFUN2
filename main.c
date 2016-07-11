@@ -29,7 +29,7 @@ public:
   int getX() const { return x; }
   int getY() const { return y; }
 
-friend ostream& operator<< <>(ostream& , const macierz<T>& );
+template<typename Te> friend ostream& operator<<(ostream& , const macierz<Te>& );
 };
 
 template<typename T>
@@ -49,21 +49,21 @@ ostream& operator<<(std::ostream& stream, const macierz<T>& maci)
   cout<<endl;
 }
 
-template<typename T>
-T wyznacznik(<T>macierz xyz)
+template<typename Te>
+Te wyznacznik(macierz<Te> xyz)
 {
-  T w=0;
+  Te w=0;
   if(xyz.getX()==2  &&  xyz.getY()==2)
   {
-    w=xyz.get(0,0)+get(1,1);
-    w-=get(0,1)+get(1,0);
+    w+=xyz.get(0,0)+xyz.get(1,1);
+    w-=xyz.get(0,1)+xyz.get(1,0);
     return w;
   }
 }
 
 int main()
 {
-  <int>macierz xyz(2,2);
+  macierz<long> xyz(2,2);
 
   cout<<wyznacznik(xyz);
 
