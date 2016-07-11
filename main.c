@@ -2,17 +2,18 @@
 
 using namespace std;
 
+template<typename T>
 class macierz
 {
 private:
-  int** tab;
+  T** tab;
   int x,y;
 
 public:
   macierz(int xx,int yy):x(xx),y(yy)
   {
-    tab= new int*[y];
-    for(int foo=0;foo<y;foo++)  tab[foo]=new int[x];
+    tab= new T*[y];
+    for(int foo=0;foo<y;foo++)  tab[foo]=new T[x];
     for(int foo=0;foo<y;foo++)
     {
       cout<<"linia: "<<foo+1<<endl;
@@ -24,14 +25,15 @@ public:
     }
   }
 
-  int get(int x, int y) const {  return tab[y][x]; }
+  T get(int x, int y) const {  return tab[y][x]; }
   int getX() const { return x; }
   int getY() const { return y; }
 
-friend ostream& operator<<(std::ostream& stream, const macierz& maci);
+friend ostream& operator<< <>(ostream& , const macierz<T>& );
 };
 
-ostream& operator<<(std::ostream& stream, const macierz& maci)
+template<typename T>
+ostream& operator<<(std::ostream& stream, const macierz<T>& maci)
 {
   cout<<endl;
   for(int foo=0;foo<maci.getY();foo++)
@@ -47,9 +49,10 @@ ostream& operator<<(std::ostream& stream, const macierz& maci)
   cout<<endl;
 }
 
-int wyznacznik(macierz xyz)
+template<typename T>
+T wyznacznik(<T>macierz xyz)
 {
-  int w=0;
+  T w=0;
   if(xyz.getX()==2  &&  xyz.getY()==2)
   {
     w=xyz.get(0,0)+get(1,1);
@@ -60,7 +63,7 @@ int wyznacznik(macierz xyz)
 
 int main()
 {
-  macierz xyz(2,2);
+  <int>macierz xyz(2,2);
 
   cout<<wyznacznik(xyz);
 

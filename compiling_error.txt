@@ -1,0 +1,25 @@
+C:\AndroidCode\GITFUN2\main.c:53:13: error: template declaration of 'T wyznacznik'
+ T wyznacznik(<T>macierz xyz)
+             ^
+C:\AndroidCode\GITFUN2\main.c:53:14: error: expected primary-expression before '<' token
+ T wyznacznik(<T>macierz xyz)
+              ^
+C:\AndroidCode\GITFUN2\main.c:53:16: error: expected primary-expression before '>' token
+ T wyznacznik(<T>macierz xyz)
+                ^
+C:\AndroidCode\GITFUN2\main.c:53:25: error: missing template arguments before 'xyz'
+ T wyznacznik(<T>macierz xyz)
+                         ^
+C:\AndroidCode\GITFUN2\main.c: In function 'int main()':
+C:\AndroidCode\GITFUN2\main.c:66:3: error: expected primary-expression before '<' token
+   <int>macierz xyz(2,2);
+   ^
+C:\AndroidCode\GITFUN2\main.c:66:4: error: expected primary-expression before 'int'
+   <int>macierz xyz(2,2);
+    ^
+C:\AndroidCode\GITFUN2\main.c:68:20: error: 'xyz' was not declared in this scope
+   cout<<wyznacznik(xyz);
+                    ^
+C:\AndroidCode\GITFUN2\main.c:68:23: error: 'wyznacznik' was not declared in this scope
+   cout<<wyznacznik(xyz);
+                       ^
