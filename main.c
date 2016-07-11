@@ -58,6 +58,11 @@ macierz(int xx,int yy,T initValue):x(xx),y(yy){
   int getX() const { return x; }
   int getY() const { return y; }
 
+  isSquare() const
+  {
+    if(getX()==getY()) return getX();
+    else return 0;
+  }
 
 template<typename Te> friend ostream& operator<<(ostream& , const macierz<Te>& );
 
@@ -74,14 +79,15 @@ template<typename Te> friend ostream& operator<<(ostream& , const macierz<Te>& )
         }
       }
 
-//      for(int it=0;it<(this->getX()-1)*(this->getY()-1);it++)cout<<initArray[it];
-      macierz<T> w(this->getX()-1,this->getY()-1,initArray);
+    macierz<T> w(this->getX()-1,this->getY()-1,initArray);
 
       return w;
   }
 
   T wyznacznik() const
   {
+    if(!isSquare())cerr << "/* Proba liczenia wyznacznika macierzy nie kwadratowej */" << std::endl;
+
     T w=0;
     if(this->getX()==2)
     {
@@ -133,7 +139,7 @@ int main()
 {
   //macierzkw<long> xyz(3);
   int tab[]={1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4};
-  macierz<int> abc(4,4);
+  const macierz<int> abc(4,4);
 
 
   cout<<abc.wyznacznik();
