@@ -2,17 +2,18 @@
 
 using namespace std;
 
+template<typename T>
 class macierz
 {
 private:
-  int** tab;
+  T** tab;
   int x,y;
 
 public:
   macierz(int xx,int yy):x(xx),y(yy)
   {
-    tab= new int*[y];
-    for(int foo=0;foo<y;foo++)  tab[foo]=new int[x];
+    tab= new T*[y];
+    for(int foo=0;foo<y;foo++)  tab[foo]=new T[x];
     for(int foo=0;foo<y;foo++)
     {
       cout<<"linia: "<<foo+1<<endl;
@@ -24,13 +25,13 @@ public:
     }
   }
 
-  int get(int x, int y) const {  return tab[y][x]; }
+  T get(int x, int y) const {  return tab[y][x]; }
   int getX() const { return x; }
   int getY() const { return y; }
 
-  int wyznacznik() const
+  T wyznacznik() const
   {
-    int w=0;
+    T w=0;
     if(getX()==2  &&  getY()==2)
     {
       w=get(0,0)*get(1,1);
@@ -51,10 +52,11 @@ public:
     }
   }
 
-  friend ostream& operator<<(std::ostream& stream, const macierz& maci);
+template<typename Te> friend ostream& operator<<(ostream& , const macierz<Te>& );
 };
 
-ostream& operator<<(std::ostream& stream, const macierz& maci)
+template<typename T>
+ostream& operator<<(std::ostream& stream, const macierz<T>& maci)
 {
   cout<<endl;
   for(int foo=0;foo<maci.getY();foo++)
@@ -72,7 +74,7 @@ ostream& operator<<(std::ostream& stream, const macierz& maci)
 
 int main()
 {
-  macierz xyz(2,2);
+  macierz<long> xyz(2,2);
 
   cout<<xyz.wyznacznik();
 
