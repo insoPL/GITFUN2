@@ -85,6 +85,27 @@ public:
     return w;
   }
 
+  macierz<T> operator-(macierz<T> skladnik) const
+  {
+    if(getX() !=  skladnik.getX()  ||  getY()  !=  skladnik.getY())
+    {
+      cerr << "Błąd dodawania macierzy - Macierze nie są tej samej wielkości" << endl;
+    }
+
+    T* tabW=new T[getX()*getY()];
+
+    int it=0;
+    for(int foo=0;foo<y;foo++)
+    {
+      for(int bar=0;bar<x;bar++)
+      {
+        tabW[it++]=tab[foo][bar]-skladnik.get(bar,foo);
+      }
+    }
+    macierz<T> w(getX(),getY(),tabW);
+    return w;
+  }
+
 template<typename Te> friend ostream& operator<<(ostream& , const macierz<Te>& );
 
   macierz<T> wykreslenie(int i,int j) const
@@ -159,12 +180,21 @@ ostream& operator<<(std::ostream& stream, const macierz<T>& maci)
 int main()
 {
   //macierzkw<long> xyz(3);
-  int tab[]={1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4};
+  int tab1[]={1,2,3,4,
+              1,2,3,4,
+              1,2,3,4,
+              1,2,3,4};
 
-  const macierz<int> abc(4,4,tab);
-  const macierz<int> bac(4,4,tab);
 
- cout  <<  abc+bac;
+  int tab2[]={7,2,3,4,
+              1,2,3,4,
+              1,2,3,4,
+              1,2,3,4};
+
+  const macierz<int> abc(4,4,tab1);
+  const macierz<int> bac(4,4,tab2);
+
+ cout  <<  abc-bac;
 
   char c;
   cin>>c;
