@@ -68,6 +68,17 @@ public:
     }
   }
 
+  macierz(const macierz<T> wzor):x(wzor.getX()),y(wzor.getY())
+  {
+    for(int foo=0;foo<y;foo++)
+    {
+      for(int bar=0;bar<x;bar++)
+      {
+        tab[foo][bar]=wzor.get(foo,bar);
+      }
+    }
+  }
+
   T get(int x, int y) const {  return tab[y][x]; }
   int getX() const { return x; }
   int getY() const { return y; }
