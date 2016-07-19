@@ -11,6 +11,8 @@ private:
   int x,y;
 
 public:
+  template<typename Te> friend ostream& operator<<(ostream& , const macierz<Te>& );
+
   macierz(int xx,int yy):x(xx),y(yy)
   {
     tab= new T*[y];
@@ -95,9 +97,9 @@ public:
     T* tabW=new T[getX()*getY()];
 
     int it=0;
-    for(int foo=0;foo<y;foo++)
+    for(int foo=0;foo<getY();foo++)
     {
-      for(int bar=0;bar<x;bar++)
+      for(int bar=0;bar<getX();bar++)
       {
         tabW[it++]=tab[foo][bar]-skladnik.get(bar,foo);
       }
@@ -106,7 +108,34 @@ public:
     return w;
   }
 
-template<typename Te> friend ostream& operator<<(ostream& , const macierz<Te>& );
+  macierz<T> operator*(macierz<T> skladnik) const
+  {
+    if(getX() !=  skladnik.getY())
+    {
+      cerr << "Blad mnozenia macierzy - Bledny rozmiar" << endl;
+    }
+
+    T* tabW=new T[getX()*skladnik.getY()];
+
+    int it=0;
+    for(int foo=0;foo<y;foo++)
+    {
+      for(int bar=0;bar<x;bar++)
+      {
+        T suma=0;
+
+        for(int loop=0;loop<getX();loop++)
+        {
+          suma+=get(loop,foo)*skladnik.get(bar,loop);
+        }
+
+        tabW[it++]=suma;
+      }
+    }
+
+    macierz<T> w(getX(),getY(),tabW);
+    return w;
+  }
 
   macierz<T> wykreslenie(int i,int j) const
   {
@@ -179,7 +208,7 @@ ostream& operator<<(std::ostream& stream, const macierz<T>& maci)
 
 int main()
 {
-  //macierzkw<long> xyz(3);
+  ///macierzkw<long> xyz(3);
   int tab1[]={1,2,3,4,
               1,2,3,4,
               1,2,3,4,
@@ -194,7 +223,7 @@ int main()
   const macierz<int> abc(4,4,tab1);
   const macierz<int> bac(4,4,tab2);
 
- cout  <<  abc-bac;
+ cout  <<  abc*bac;
 
   char c;
   cin>>c;
