@@ -4,6 +4,14 @@
 using namespace std;
 
 template<typename T>
+T** create2D(int xx,int yy)
+{
+  T** Array= new T*[yy];
+  for(int foo=0;foo<yy;foo++)  Array[foo]=new T[xx];
+  return Array;
+}
+
+template<typename T>
 class macierz
 {
 private:
@@ -13,10 +21,22 @@ private:
 public:
   template<typename Te> friend ostream& operator<<(ostream& , const macierz<Te>& );
 
+  macierz<T> setByArray(T* inputArray)
+  {
+    int it=0;
+    for(int foo=0;foo<y;foo++)
+    {
+      for(int bar=0;bar<x;bar++)
+      {
+        tab[foo][bar]=inputArray[it++];
+      }
+    }
+    return this;
+  }
+
   macierz(int xx,int yy):x(xx),y(yy)
   {
-    tab= new T*[y];
-    for(int foo=0;foo<y;foo++)  tab[foo]=new T[x];//creating 2D array
+    tab = create2D<T>(x,y);
 
     for(int foo=0;foo<y;foo++)
     {
@@ -29,9 +49,9 @@ public:
     }
   }
 
-  macierz(int xx,int yy,T* inputArray):x(xx),y(yy){
-    tab= new T*[y];
-    for(int foo=0;foo<y;foo++)  tab[foo]=new T[x];//creating 2D array
+  macierz(int xx,int yy,T* inputArray):x(xx),y(yy)
+  {
+  tab= create2D<T>(getX(),getY());
 
     int it=0;
     for(int foo=0;foo<y;foo++)
@@ -43,9 +63,9 @@ public:
     }
   }
 
-  macierz(int xx,int yy,T initValue):x(xx),y(yy){
-    tab= new T*[y];
-    for(int foo=0;foo<y;foo++)  tab[foo]=new T[x];//creating 2D array
+  macierz(int xx,int yy,T initValue):x(xx),y(yy)
+  {
+    tab= create2D(getX(),getY());
 
     for(int foo=0;foo<y;foo++)
     {
