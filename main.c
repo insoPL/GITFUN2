@@ -137,6 +137,14 @@ public:
     return w;
   }
 
+  macierz<T> potega(short int potega)  const
+  {
+    if(potega>0){
+      macierz<T> w(getX(),getY());
+
+    }
+  }
+
   macierz<T> wykreslenie(int i,int j) const
   {
     T* initArray=new T[(this->getX()-1)*(this->getY()-1)];
