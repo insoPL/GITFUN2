@@ -57,7 +57,7 @@ public:
 
   macierz(int xx,int yy,T initValue):x(xx),y(yy)
   {
-    tab= create2D(getX(),getY());
+    tab= create2D<T>(getX(),getY());
 
     for(int foo=0;foo<y;foo++)
     {
@@ -68,7 +68,7 @@ public:
     }
   }
 
-  macierz(const macierz<T> wzor):x(wzor.getX()),y(wzor.getY())
+  macierz(const macierz<T>& wzor):x(wzor.getX()),y(wzor.getY())
   {
     for(int foo=0;foo<y;foo++)
     {
@@ -171,15 +171,15 @@ public:
       }
     }
 
-    macierz<T> w(getX(),getY(),tabW);
+    macierz<T> w(getX(),skladnik.getY(),tabW);
     return w;
   }
 
   macierz<T> potega(short int potega)  const
   {
     if(potega>0){
-      macierz<T> w(getX(),getY());
-
+      macierz<T> w(operator*(*this));
+      return w;
     }
   }
 
@@ -266,10 +266,11 @@ int main()
               1,2,3,4,
               1,2,3,4};
 
-  const macierz<int> abc(4,4,tab1);
+  const macierz<int> abc(4,4,1);
   const macierz<int> bac(4,4,tab2);
 
- cout  <<  abc*bac;
+ cout  <<  abc*abc;
+//cout << abc.potega(2);
 
   char c;
   cin>>c;
