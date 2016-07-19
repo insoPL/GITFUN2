@@ -68,7 +68,19 @@ public:
     }
   }
 
-  
+  macierz(const macierz<T>& wzor):x(wzor.getX()),y(wzor.getY())
+  {
+    std::cout << "konstruktor kopiujący!!!" << std::endl;
+    tab=create2D<T>(x,y);
+
+    for(int foo=0;foo<y;foo++)
+    {
+      for(int bar=0;bar<x;bar++)
+      {
+        tab[foo][bar]=wzor.get(foo,bar);
+      }
+    }
+  }
 
   T get(int x, int y) const {  return tab[y][x]; }
   int getX() const { return x; }
@@ -138,14 +150,14 @@ public:
   }
 
   macierz<T> operator*(macierz<T> skladnik) const
-  {
+  {std::cout << "przed" << std::endl;
+
     if(getX() !=  skladnik.getY())
     {
       cerr << "Blad mnozenia macierzy - Bledny rozmiar" << endl;
     }
 
     T* tabW=new T[getX()*skladnik.getY()];
-
     int it=0;
     for(int foo=0;foo<y;foo++)
     {
