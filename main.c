@@ -21,7 +21,7 @@ private:
 public:
   template<typename Te> friend ostream& operator<<(ostream& , const macierz<Te>& );
 
-  macierz<T> setByArray(T* inputArray)
+  macierz<T>* setByArray(T* inputArray)
   {
     int it=0;
     for(int foo=0;foo<y;foo++)
@@ -52,15 +52,7 @@ public:
   macierz(int xx,int yy,T* inputArray):x(xx),y(yy)
   {
   tab= create2D<T>(getX(),getY());
-
-    int it=0;
-    for(int foo=0;foo<y;foo++)
-    {
-      for(int bar=0;bar<x;bar++)
-      {
-        tab[foo][bar]=inputArray[it++];
-      }
-    }
+  setByArray(inputArray);
   }
 
   macierz(int xx,int yy,T initValue):x(xx),y(yy)
@@ -79,6 +71,21 @@ public:
   T get(int x, int y) const {  return tab[y][x]; }
   int getX() const { return x; }
   int getY() const { return y; }
+
+  macierz<T> getArray() const
+  {
+    T* ArrayW;
+
+    int it=0;
+    for(int foo=0;foo<y;foo++)
+    {
+      for(int bar=0;bar<x;bar++)
+      {
+        ArrayW[it++]=tab[foo][bar];
+      }
+    }
+    return ArrayW;
+  }
 
   int isSquare() const
   {
