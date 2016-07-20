@@ -79,6 +79,15 @@ macierz<T>::macierz(const macierz<T>& wzor):x(wzor.getX()),y(wzor.getY())
 		}
 	}
 }
+template<typename T>
+~macierz(){
+  for(int foo=0;foo<y;foo++)
+  {
+      delete tab[foo];
+  }
+  delete tab;
+std::cout << "i become death destroyer of the world" << std::endl;
+}
 
 template<typename T>
 T macierz<T>::get(int x, int y) const {  return tab[y][x]; }
@@ -263,4 +272,18 @@ std::ostream& operator<<(std::ostream& stream, const macierz<T>& maci)
     std::cout<<"|"<<std::endl;
   }
   std::cout<<std::endl;
+}
+
+template<typename T>
+std::istream& operator>>(std::istream& stream, const macierz<T>& maci)
+{
+  for(int foo=0;foo<y;foo++)
+  {
+    std::cout<<"linia: "<<foo+1<<std::endl;
+    for(int bar=0;bar<x;bar++)
+    {
+      std::cin>>tab[foo][bar];
+    }
+    std::cout<<std::endl;
+  }
 }
