@@ -1,4 +1,5 @@
 #include<iostream>
+#include<sStream>
 #include "macierz.hpp"
 
 template<typename T>
@@ -80,13 +81,13 @@ macierz<T>::macierz(const macierz<T>& wzor):x(wzor.getX()),y(wzor.getY())
 	}
 }
 template<typename T>
-~macierz(){
+macierz<T>::~macierz(){
   for(int foo=0;foo<y;foo++)
   {
       delete tab[foo];
   }
   delete tab;
-std::cout << "i become death destroyer of the world" << std::endl;
+std::cout << "I become death destroyer of the world" << std::endl;
 }
 
 template<typename T>
@@ -148,7 +149,7 @@ macierz<T> macierz<T>::operator-(macierz<T> skladnik) const
 {
   if(getX() !=  skladnik.getX()  ||  getY()  !=  skladnik.getY())
   {
-    std::cerr << "Błąd dodawania macierzy - Macierze nie są tej samej wielkości" << std::endl;
+    std::cerr << "Błąd odejmowania macierzy - Macierze nie są tej samej wielkości" << std::endl;
   }
 
   T* tabW=new T[getX()*getY()];
@@ -277,13 +278,31 @@ std::ostream& operator<<(std::ostream& stream, const macierz<T>& maci)
 template<typename T>
 std::istream& operator>>(std::istream& stream, const macierz<T>& maci)
 {
-  for(int foo=0;foo<y;foo++)
+  for(int foo=0;foo<maci.getY;foo++)
   {
     std::cout<<"linia: "<<foo+1<<std::endl;
-    for(int bar=0;bar<x;bar++)
+    for(int bar=0;bar<maci.getX();bar++)
     {
-      std::cin>>tab[foo][bar];
+      std::cin>>maci.get(bar,foo);
     }
     std::cout<<std::endl;
   }
 }
+
+/*
+template<typename T>
+string toString()
+{
+  stringStream str;
+  for(int foo=0;foo<maci.getY();foo++)
+  {
+    for(int bar=0;bar<maci.getX();bar++)
+    {
+      str<<maci.get(bar,foo);
+      if(bar+1<maci.getX())str<<" ";
+    }
+    str<<'|';
+  }
+  return str.string();
+}
+*/

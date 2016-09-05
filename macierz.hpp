@@ -17,6 +17,7 @@ public:
 	macierz(int xx,int yy,T initValue);
 	macierz(int xx,int yy,T* inputArray);
 	macierz(const macierz<T>& wzor);
+	~macierz();
 
   T get(int x, int y) const;
 	int getX() const;
