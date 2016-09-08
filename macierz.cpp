@@ -1,10 +1,13 @@
 #include<iostream>
 #include<sStream>
-#include "macierz.hpp"
+#include <math.h>
+
+#ifdef MACIERZ_HPP
 
 template<typename T>
 class macierz;
-////////
+
+
 template<typename T>
 T** create2D(int xx,int yy)
 {
@@ -13,8 +16,6 @@ T** create2D(int xx,int yy)
   return Array;
 }
 
-
-///////////
 
 template<typename T>
 macierz<T>* macierz<T>::setByArray(T* inputArray)
@@ -306,3 +307,4 @@ string toString()
   return str.string();
 }
 */
+#endif

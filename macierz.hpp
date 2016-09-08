@@ -34,5 +34,6 @@ public:
 
 	macierz<T> potega(short int potega) const;
 };
+
 #include "macierz.cpp"
 #endif
