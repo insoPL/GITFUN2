@@ -1,5 +1,6 @@
 #include<iostream>
 #include <math.h>
+#include <cstdlib>
 #include "macierz.hpp"
 
 using namespace std;
@@ -19,11 +20,14 @@ int main()
               1,2,3,4,
               1,2,3,4};
 
-  const macierz<int> abc(4,4);
-  const macierz<int> bac(4,4,tab2);
+  macierz<int> abc(4,4,1);
+  macierz<int> bac(4,4,tab2);
 
  cout  <<  bac;
 //cout << abc.potega(2);
+//cout<< bac.toString();
+abc.fromString(bac.toString());
+cout << bac;
 
   char c;
   cin>>c;

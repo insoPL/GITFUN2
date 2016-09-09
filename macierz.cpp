@@ -128,7 +128,7 @@ macierz<T> macierz<T>::operator+(macierz<T> skladnik) const
 {
   if(getX() !=  skladnik.getX()  ||  getY()  !=  skladnik.getY())
   {
-    std::cerr << "BÅ‚Ä…d dodawania macierzy - Macierze nie sÄ… tej samej wielkoÅ›ci" << std::endl;
+    std::cerr << "B³¹d dodawania macierzy - Macierze nie s¹ tej samej wielkoœci" << std::endl;
   }
 
   T* tabW=new T[getX()*getY()];
@@ -150,7 +150,7 @@ macierz<T> macierz<T>::operator-(macierz<T> skladnik) const
 {
   if(getX() !=  skladnik.getX()  ||  getY()  !=  skladnik.getY())
   {
-    std::cerr << "BÅ‚Ä…d odejmowania macierzy - Macierze nie sÄ… tej samej wielkoÅ›ci" << std::endl;
+    std::cerr << "B³¹d odejmowania macierzy - Macierze nie s¹ tej samej wielkoœci" << std::endl;
   }
 
   T* tabW=new T[getX()*getY()];
@@ -250,7 +250,7 @@ T macierz<T>::wyznacznik() const
     return w;
   }
   else
-  {// RozwiniÄ™cie Laplaca
+  {// Rozwiniêcie Laplaca
     for(int rzad=0;rzad<this->getX();rzad++)
     {
       w+=this->get(rzad,0)*pow(-1,rzad)*(this->wykreslenie(rzad,0)).wyznacznik();
@@ -290,21 +290,48 @@ std::istream& operator>>(std::istream& stream, const macierz<T>& maci)
   }
 }
 
-/*
+
 template<typename T>
-string toString()
+std::string macierz<T>::toString() const
 {
-  stringStream str;
-  for(int foo=0;foo<maci.getY();foo++)
+  std::stringstream str;
+  str<<"| ";
+  for(int foo=0;foo<getY();foo++)
   {
-    for(int bar=0;bar<maci.getX();bar++)
+    for(int bar=0;bar<getX();bar++)
     {
-      str<<maci.get(bar,foo);
-      if(bar+1<maci.getX())str<<" ";
+      str<<get(bar,foo);
+      if(bar+1<getX())str<<" ";
     }
-    str<<'|';
+    str<<" | ";
   }
-  return str.string();
+  return str.str();
 }
-*/
+
+template<>
+void macierz<int>::fromString(std::string input)
+{
+  std::stringstream str(input);
+  std::string tym;
+  str>>tym;
+  if(!tym.compare("|")==0) return;
+
+  unsigned int foo=0,bar=0;
+  while(true)
+  {
+    bar=0;
+    while(true)
+    {
+      str>>tym;
+      if(str.eof())return;
+      if(tym.compare("|")==0) break;
+      else {
+        tab[foo][bar]=atoi(tym.c_str());
+      }
+      bar++;
+    }
+    foo++;
+    std::cout<<std::endl;
+  }
+}
 #endif

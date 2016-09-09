@@ -33,6 +33,9 @@ public:
 	macierz<T> operator*(macierz<T> skladnik) const;
 
 	macierz<T> potega(short int potega) const;
+
+	std::string toString() const;
+    void fromString(std::string);
 };
 
 #include "macierz.cpp"
