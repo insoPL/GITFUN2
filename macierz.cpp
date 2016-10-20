@@ -1,6 +1,6 @@
 #include<iostream>
 #include<sStream>
-#include <math.h>
+#include<math.h>
 
 #ifdef MACIERZ_HPP
 
@@ -128,7 +128,7 @@ macierz<T> macierz<T>::operator+(macierz<T> skladnik) const
 {
   if(getX() !=  skladnik.getX()  ||  getY()  !=  skladnik.getY())
   {
-    std::cerr << "B³¹d dodawania macierzy - Macierze nie s¹ tej samej wielkoœci" << std::endl;
+    std::cerr << "BÂ³Â¹d dodawania macierzy - Macierze nie sÂ¹ tej samej wielkoÅ“ci" << std::endl;
   }
 
   T* tabW=new T[getX()*getY()];
@@ -150,7 +150,7 @@ macierz<T> macierz<T>::operator-(macierz<T> skladnik) const
 {
   if(getX() !=  skladnik.getX()  ||  getY()  !=  skladnik.getY())
   {
-    std::cerr << "B³¹d odejmowania macierzy - Macierze nie s¹ tej samej wielkoœci" << std::endl;
+    std::cerr << "BÂ³Â¹d odejmowania macierzy - Macierze nie sÂ¹ tej samej wielkoÅ“ci" << std::endl;
   }
 
   T* tabW=new T[getX()*getY()];
@@ -250,7 +250,7 @@ T macierz<T>::wyznacznik() const
     return w;
   }
   else
-  {// Rozwiniêcie Laplaca
+  {// RozwiniÃªcie Laplaca
     for(int rzad=0;rzad<this->getX();rzad++)
     {
       w+=this->get(rzad,0)*pow(-1,rzad)*(this->wykreslenie(rzad,0)).wyznacznik();
